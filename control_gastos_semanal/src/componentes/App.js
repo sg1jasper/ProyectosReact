@@ -1,32 +1,56 @@
-import React from 'react';
+import React , {Component} from 'react';
 import '../css/App.css';
 import Header from './Header'
 import Formulario from './Formulario';
 
-function App() {
-  return (
-      <div className="App container">
-        <Header
-            titulo='GASTO SEMANAL'
-        />
+class App extends Component {
+  state = {
+    presupuesto : '',
+    restante : '',
+    gastos: {}
+  }
 
-          <div className="contenido-principal contenido">
-            <div className="row">
+  // AGREGAR un nuevo gasto al State 
+  agregarGasto = gasto =>{
+    // Crear copia del state actual 
 
-              <div className="one-half column">
-                  <Formulario/>
+    // Agregar el nuevo gasto al objeto copia del state 
+
+    // añadirlo al state el nuevo 
+
+
+  }
+
+
+  render(){
+
+      return (
+          <div className="App container">
+            <Header
+                titulo='GASTO SEMANAL'
+            />
+
+              <div className="contenido-principal contenido">
+                <div className="row">
+
+                  <div className="one-half column">
+                      <Formulario
+                        agregarGasto = {this.props.agregarGasto}
+                      />
+                  </div>
+
+                  <div className="one-half column">
+                    
+                  </div>
+
+                </div>
               </div>
 
-              <div className="one-half column">
-                
-              </div>
-
-            </div>
           </div>
+        
+      )
 
-      </div>
-    
-  );
+  }
 }
 
 export default App;
