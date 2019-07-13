@@ -1,6 +1,7 @@
 import React from 'react';
 import '../css/App.css';
 import Header from './Header'
+import Formulario from './Formulario';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
             <div className="row">
 
               <div className="one-half column">
-                
+                  <Formulario/>
               </div>
 
               <div className="one-half column">
