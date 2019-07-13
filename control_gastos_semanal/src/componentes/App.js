@@ -11,13 +11,17 @@ class App extends Component {
   }
 
   // AGREGAR un nuevo gasto al State 
-  agregarGasto = gasto =>{
+  agregarGasto = gasto => {
     // Crear copia del state actual 
+    const gastos = {...this.state.gastos}; // copia lista de gastos en constante gastos
 
     // Agregar el nuevo gasto al objeto copia del state 
+    gastos[`gasto${Date.now()}`] = gasto;
 
     // añadirlo al state el nuevo 
-
+    this.setState ({
+      gastos : gastos
+    })
 
   }
 
@@ -35,7 +39,7 @@ class App extends Component {
 
                   <div className="one-half column">
                       <Formulario
-                        agregarGasto = {this.props.agregarGasto}
+                        agregarGasto = {this.agregarGasto}
                       />
                   </div>
 

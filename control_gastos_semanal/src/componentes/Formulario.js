@@ -15,7 +15,8 @@ class Formulario extends Component {
                 cantidad: this.cantidadGastoRef.current.value
             };
 
-        // Añadirlo y enviar por medio de props al padre APP
+        // Añadirlo y enviar por medio de props al padre(APP)
+            this.props.agregarGasto(gasto); //Envio de gasto por medio de props al padre 
 
         
 
