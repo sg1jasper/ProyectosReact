@@ -15,12 +15,12 @@ class Formulario extends Component {
     cotizarSeguro = (e) => {
         e.preventDefault();
 
-        // LEER EL PLAN TODO: Analizar y entender este codigo 
+        // LEER EL PLAN TODO: Analizar y entender este codigo (OPERADORES TERNARIOS )
         const plan = this.planBasicoRef.current.checked ? 'basico' : 'completo';
         //Obtener los datos del form 
-     
-        
 
+     
+    
         //Crear el objeto que contiene los datos 
         const infoCoche={
             marca: this.marcaRef.current.value,
