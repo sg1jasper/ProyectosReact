@@ -3,6 +3,7 @@ import '../css/App.css';
 import Header from './Header'
 import Formulario from './Formulario';
 import Listado from './Listado';
+import ControlPresupuesto from './ControlPresupuesto';
 import {validarPresupuesto , revisarPresupuesto } from '../Helper';
 
 class App extends Component {
@@ -28,7 +29,6 @@ class App extends Component {
       this.obtenerPresupuesto();
     }
 
-    console.log(presupuesto);
   }
 
   // AGREGAR un nuevo gasto al State 
@@ -39,12 +39,34 @@ class App extends Component {
     // Agregar el nuevo gasto al objeto copia del state 
     gastos[`gasto${Date.now()}`] = gasto;
 
+    //Restar presuùesto el gasto 
+    this.restarPresupuesto(gasto.cantidad);
+
     // añadirlo al state el nuevo 
     this.setState ({
       gastos : gastos
     })
+  }
+  
+  //Restar del presupuesto cuando se crea un nuevo gasto 
+  restarPresupuesto  = cantidad =>{
+    // Lectura de la cantidad del nuevo gasto 
+    let restar = Number(cantidad);
+
+    // Copia del restante que hay en el state actual
+    let restante = this.state.restante;
+
+    // Restamos los valores 
+    restante -= restar; 
+
+    // actualizamos el valor del nuevo state 
+    this.setState({
+      restante
+    })
 
   }
+
+
 
 
   render(){
@@ -66,7 +88,13 @@ class App extends Component {
                     <Listado
                       gastos = {this.state.gastos}
                     />
+
+
                   <div className="one-half column">
+                    <ControlPresupuesto
+                      presupuesto = {this.state.presupuesto}
+                      restante = {this.state.restante}
+                    />
                     
                   </div>
 
