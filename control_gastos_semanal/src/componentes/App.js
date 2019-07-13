@@ -3,12 +3,32 @@ import '../css/App.css';
 import Header from './Header'
 import Formulario from './Formulario';
 import Listado from './Listado';
+import {validarPresupuesto , revisarPresupuesto } from '../Helper';
 
 class App extends Component {
   state = {
     presupuesto : '',
     restante : '',
     gastos: {}
+  }
+
+  componentDidMount(){ // se ejecuta antes de pintar la pantalla
+    this.obtenerPresupuesto();
+  }100
+100
+  obtenerPresupuesto(){
+    let presupuesto = prompt('Establece el presupuesto inicial');
+    let resultado = validarPresupuesto(presupuesto);
+    if (resultado){
+      this.setState({
+        presupuesto : presupuesto,
+        restante : presupuesto
+      })
+    }else {
+      this.obtenerPresupuesto();
+    }
+
+    console.log(presupuesto);
   }
 
   // AGREGAR un nuevo gasto al State 
