@@ -13,6 +13,25 @@ class App extends Component {
     }
   }
 
+  //Antes de cargar los componentes , cargamos el state con el local storage actual
+  componentWillMount(){
+    const citasLstorage = JSON.parse(localStorage.getItem('citas'))
+   
+    if (citasLstorage){
+      this.setState({
+        citas: citasLstorage
+      })
+    }
+
+  
+  }
+
+  //Cuando el componete cambie , se le añade al local Storage el stage 
+  componentDidUpdate(){
+    localStorage.setItem(
+      'citas', JSON.stringify(this.state.citas)
+    );
+  }
 
   crearCita = (nuevaCita)=>{
     const  citas = [...this.state.citas , nuevaCita];
