@@ -1,0 +1,4 @@
+312eade65e9028f5428a2ecbc8a983eb
+
+Ejemplo basico 
+http://api.openweathermap.org/data/2.5/weather?q=valencia&appid=312eade65e9028f5428a2ecbc8a983eb
