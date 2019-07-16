@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Header = props =>{
 
@@ -7,5 +8,12 @@ const Header = props =>{
         <h1 className="text-center"> {props.titulo}</h1>
         </header>
     )
+
 }
+
+    Header.prototype = {
+        titulo: PropTypes.string.isRequired
+    }
+    
+
 export default Header ;

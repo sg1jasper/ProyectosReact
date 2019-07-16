@@ -17,6 +17,7 @@ class App extends Component {
   componentWillMount(){
     const citasLstorage = JSON.parse(localStorage.getItem('citas'))
    
+   
     if (citasLstorage){
       this.setState({
         citas: citasLstorage
