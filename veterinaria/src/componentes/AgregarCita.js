@@ -11,34 +11,54 @@ class AgregarCita extends Component {
      sintomasRef = React.createRef();
 
 
-    state = {  }
+    state = { error : false }
 
     crearNuevaCita = (e) =>{
         e.preventDefault();
         this.props.crearCita();
        
 
-        const nuevaCita = {
-            id: uuid(),
-            nombreMascota: this.nombreMascotaRef.current.value,
-            nombreDueno: this.nombreDuenoRef.current.value,
-            fecha: this.fechaRef.current.value,
-            hora: this.horaRef.current.value,
-            sintomas: this.sintomasRef.current.value
-        };
+        const nombreMascota = this.nombreMascotaRef.current.value;
+        const nombreDueno = this.nombreDuenoRef.current.value;
+        const fecha = this.fechaRef.current.value;
+        const hora = this.horaRef.current.value;
+        const sintomas = this.sintomasRef.current.value;
 
-        // Envio de objeto nueva cita al padre 
-        this.props.crearCita(nuevaCita);
+        // Validacion de formulario básico todos los campos son requeridos 
+        if (nombreMascota === '' || nombreDueno === '' || fecha === '' || hora === '' || sintomas === '' ){
+            // Si falta algun campo carga el state del componente error: true 
+            this.setState({
+                error : true
+            });
+        }else {
 
-        //Despues de enviar reseteo el Form 
-        e.currentTarget.reset();
+            const nuevaCita = {
+                id: uuid(),
+                nombreMascota: nombreMascota,
+                nombreDueno: nombreDueno ,
+                fecha: fecha ,
+                hora: hora ,
+                sintomas: sintomas
+            };
+
+            // Envio de objeto nueva cita al padre 
+            this.props.crearCita(nuevaCita);
+
+            //Despues de enviar reseteo el Form 
+            e.currentTarget.reset();
+
+            this.setState({
+                error : false 
+            });
+        }
         
     }
 
 
 
-
     render() { 
+        const faltanCampos = this.state.error;
+        
         return ( 
             <div className="card mt-5">
                 <div className="card-body">
@@ -83,7 +103,7 @@ class AgregarCita extends Component {
                             </div>
                         </div>
                     </form>
-
+                    {faltanCampos ? <div className="alert alert-danger text-center" > TODOS LOS CAMPOS SON REQUERIDOS </div> : ''}
                 </div>
             </div>
          );
