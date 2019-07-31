@@ -3,10 +3,14 @@ import React, { Component } from 'react';
 import {BrowserRouter , Route , Switch} from 'react-router-dom'; 
 import axios from 'axios';
 
+
+
 import Header from './Header';
 import Navegacion from './Navegacion';
 import Posts from './Posts';
 import SinglePost from './SinglePost';
+import Formulario from './Formulario';
+
 
 class Router extends Component {
 
@@ -15,20 +19,58 @@ class Router extends Component {
         posts : []
      }
 
-     componentDidMount(){
-         this.obtenerPosts();
-     }; 
+    componentDidMount(){
+        this.obtenerPosts();
+    }; 
 
-     obtenerPosts = ()=>{
-        const URI = 'https://jsonplaceholder.typicode.com/posts'
-         axios.get(URI)
-            .then((response)=>{
-               this.setState({
-                   posts : response.data
-               })
+    obtenerPosts = ()=>{
+    const URI = 'https://jsonplaceholder.typicode.com/posts'
+        axios.get(URI)
+        .then((response)=>{
+            this.setState({
+                posts : response.data
             })
-     };
+        })
+    };
 
+    borrarPost = (id) => {
+        const URI = 'https://jsonplaceholder.typicode.com/posts';
+        axios.delete(`${URI}/${id}`)
+        .then((res)=>{
+            if(res.status === 200){
+                const copiaState = [...this.state.posts];
+
+            let stateFiltrado  =  copiaState.filter( posts =>(
+                        posts.id !== id
+            ))
+            this.setState({
+                posts : stateFiltrado
+            })
+            }
+        })
+    };
+
+    crearPost = (datos)=>{
+        axios.post(`https://jsonplaceholder.typicode.com/posts` , {datos})
+        .then(res =>{
+
+            if (res.status === 201){
+                let postId = {id: res.data.id}; 
+                
+                let nuevoPost = Object.assign({}, res.data.datos , postId);
+                console.log(nuevoPost);
+                
+                this.setState( prevState => ({
+                    posts : [...prevState.posts , nuevoPost]
+                }))
+
+
+            }else {
+                console.error("fallo al enviar post nuevo");
+            }
+            
+        })
+    };
 
     render() { 
         return ( 
@@ -48,6 +90,7 @@ class Router extends Component {
                                     return (
                                         <Posts
                                             posts = {this.state.posts}
+                                            borrarPost = {this.borrarPost}
                                         />
                                     )
                                 }
@@ -61,7 +104,7 @@ class Router extends Component {
 
                             let postFiltrado;
                             postFiltrado = posts.filter( p => (
-                                    p.id == numPost
+                                    p.id === Number(numPost)
                             ))
 
                             return(
@@ -72,6 +115,17 @@ class Router extends Component {
 
                             )}
                         }/>
+
+                        <Route exact path="/crear" render={() =>{
+                                return (
+                                    <Formulario
+                                        enviarDatosFormulario={this.crearPost}
+                                    />
+                                  )
+                           }
+                        }/>
+
+                    
 
                     </Switch>
             </BrowserRouter> 

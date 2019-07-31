@@ -16,6 +16,7 @@ class Listado extends Component {
                           <Post
                               key={keyPost}
                               info = {this.props.posts[keyPost]}
+                              borrarPost = {this.props.borrarPost}
                           />
                       ))
                     }
