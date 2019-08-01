@@ -1,12 +1,33 @@
-import React from 'react';
+import React, { Component } from 'react';
+import Buscador from './componentes/Buscador';
 
+class App extends Component {
+  state = { 
+    termino : ""
+   }
 
-function App() {
-  return (
-    <div className="App">
-        <h1>App</h1>
-    </div>
-  );
+  datosBusqueda = (termino) =>{
+    this.setState({
+      termino : termino
+    })
+  };
+
+  render() { 
+
+    return ( 
+
+      <div className="app container">
+          <div className="jumbotron">
+              <p className="lead text-center"> Buscador de imagenes </p>
+              <Buscador
+                busqueda={this.datosBusqueda}
+              />
+          </div>
+      </div>
+     );
+
+  };
 }
+ 
 
 export default App;
