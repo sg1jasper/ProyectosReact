@@ -9,12 +9,13 @@ class App extends Component {
   state = { 
     termino : "" ,
    	resultado : [] ,
-    pagina : ""
+    pagina : "1"
    }
 
    consultaApi = () =>{
+ 
 	   const termino = this.state.termino;
-     const URI = `https://pixabay.com/api/?key=13199340-5394102a1b7ccb87efbb9b9a7&q=${termino}&image_type=photo&per_page=40`;
+     const URI = `https://pixabay.com/api/?key=13199340-5394102a1b7ccb87efbb9b9a7&q=${termino}&image_type=photo&per_page=9&page=${this.state.pagina}`;
 
 	 fetch(URI)
 	 	.then((res)=>{
@@ -36,6 +37,37 @@ class App extends Component {
 		)
 	}
   
+  paginaMas = () =>{
+    
+    let pagActual = this.state.pagina;
+    pagActual ++;
+    console.log(pagActual);
+    this.setState({
+      pagina : pagActual
+    }, ()=>{
+      this.consultaApi();
+      this.scroll();
+    })
+  };
+
+
+  paginaMenos = () =>{
+    let pagActual = this.state.pagina;
+    if (pagActual === 1 ) return null;
+    pagActual --;
+    console.log(pagActual);
+    this.setState({
+      pagina : pagActual
+    }, ()=>{
+      this.consultaApi();
+      this.scroll();
+    })
+  };
+
+  scroll=()=>{
+   const elementJumbo = document.querySelector('.jumbotron');
+   elementJumbo.scrollIntoView('smooth' , 'start');
+  }
 
   render() { 
 
@@ -52,6 +84,9 @@ class App extends Component {
             <div className="col-md-12">
               <Results
                 resultadoBusqueda = {this.state.resultado}
+                paginaMas = {this.paginaMas}
+                paginaMenos = {this.paginaMenos}
+                pagActual={this.state.pagina}
               />
             </div>
           </div>

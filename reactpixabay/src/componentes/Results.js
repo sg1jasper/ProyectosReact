@@ -9,7 +9,7 @@ class Results extends Component {
     renderCards = ()=>{
         const dataProps = this.props.resultadoBusqueda;
         
-        if (dataProps == "" ) return null;
+        if (dataProps.length === 0 ) return null;
 
         return(
             <React.Fragment>
@@ -18,11 +18,18 @@ class Results extends Component {
                         <Result
                             key = {singleData.id}
                             dataCard= {singleData}
+
+                          
                         />
                     ))}
     
                 </div>
-                <PaginationButtons/>
+                <PaginationButtons
+                  paginaMas = {this.props.paginaMas}
+                  paginaMenos = {this.props.paginaMenos}
+                  pagActual={this.props.pagActual}
+
+                />
 
             </React.Fragment>
         )    
