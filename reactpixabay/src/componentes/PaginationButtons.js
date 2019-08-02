@@ -9,7 +9,7 @@ const PaginationButtons = (props) => {
         
         <div className="buttons">
             <button onClick={props.paginaMenos} className="btn btn-dark" > Anterior </button>
-            <span className="badge badge-pill badge-light ">{props.pagActual}</span>
+            <span className="badge badge-pill badge-info  ">{props.pagActual} de {props.totalPages}</span>
             <button onClick={props.paginaMas} className="btn btn-dark" > Siguiente </button>
         </div>
       

@@ -9,22 +9,35 @@ class App extends Component {
   state = { 
     termino : "" ,
    	resultado : [] ,
-    pagina : "1"
+    pagina : "1",
+    totalHits : "",
+    totalPages : "",
+    hitsXpage : 9
    }
 
    consultaApi = () =>{
  
 	   const termino = this.state.termino;
-     const URI = `https://pixabay.com/api/?key=13199340-5394102a1b7ccb87efbb9b9a7&q=${termino}&image_type=photo&per_page=9&page=${this.state.pagina}`;
+     const URI = `https://pixabay.com/api/?key=13199340-5394102a1b7ccb87efbb9b9a7&q=${termino}&image_type=photo&per_page=${this.state.hitsXpage}&page=${this.state.pagina}`;
 
 	 fetch(URI)
 	 	.then((res)=>{
 			 return res.json();
 		 })
 		 .then((data)=>{
-			 this.setState({
-				 resultado : data.hits
+       console.log(data.totalHits);
+       const hitsXpage = this.state.hitsXpage;
+       const totalPages = Math.ceil( (data.totalHits /hitsXpage) );
+      
+      console.log(totalPages);
+			
+       this.setState({
+				 resultado : data.hits,
+         totalHits: data.totalHits,
+         totalPages : totalPages
 			 })
+      
+
 		 })
    }
 
@@ -39,15 +52,18 @@ class App extends Component {
   
   paginaMas = () =>{
     
+    const totalPages = this.state.totalPages;
     let pagActual = this.state.pagina;
-    pagActual ++;
-    console.log(pagActual);
-    this.setState({
-      pagina : pagActual
-    }, ()=>{
-      this.consultaApi();
-      this.scroll();
-    })
+    
+    if(totalPages === pagActual) return null ; 
+      pagActual ++;
+      console.log(pagActual);
+      this.setState({
+        pagina : pagActual
+      }, ()=>{
+        this.consultaApi();
+        this.scroll();
+      })
   };
 
 
@@ -87,6 +103,7 @@ class App extends Component {
                 paginaMas = {this.paginaMas}
                 paginaMenos = {this.paginaMenos}
                 pagActual={this.state.pagina}
+                totalPages={this.state.totalPages}
               />
             </div>
           </div>

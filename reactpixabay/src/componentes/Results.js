@@ -28,6 +28,7 @@ class Results extends Component {
                   paginaMas = {this.props.paginaMas}
                   paginaMenos = {this.props.paginaMenos}
                   pagActual={this.props.pagActual}
+                  totalPages={this.props.totalPages}
 
                 />
 
