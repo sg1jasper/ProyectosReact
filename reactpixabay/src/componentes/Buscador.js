@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 
+
+
 class Buscador extends Component {
     refBusqueda = React.createRef();
 
@@ -15,8 +17,8 @@ class Buscador extends Component {
 
     render() { 
         return ( 
-            <form onSubmit={this.busqueda}>
-                <div className="row">
+            <form  onSubmit={this.busqueda}>
+                <div className="row ">
                     <div className=" form-group col-md-8">
                     <input className="form-control form-control-lg" type="text" placeholder="Busca tu imagen" ref={this.refBusqueda}/>
 
