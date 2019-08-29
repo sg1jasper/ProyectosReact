@@ -1,0 +1,19 @@
+{
+  "productos": [
+    {
+      "nombre": "Pastel de Zanahoria",
+      "precio": "45",
+      "id": 4
+    },
+    {
+      "nombre": "Pastel de Chocolate",
+      "precio": "60",
+      "id": 5
+    },
+    {
+      "nombre": "valor nuevo ",
+      "precio": "33",
+      "id": 6
+    }
+  ]
+}
